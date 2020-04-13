@@ -2,7 +2,6 @@ import telegram
 from telegram.ext import Updater, MessageHandler, Filters
 from telegram.ext import CommandHandler, ConversationHandler
 from tg_token import TOKEN
-# from telegram import ReplyKeyboardMarkup
 
 
 def stop(update, text):
