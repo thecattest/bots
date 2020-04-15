@@ -2,7 +2,11 @@ import telegram
 from telegram.ext import Updater, MessageHandler, Filters
 from telegram.ext import CommandHandler, ConversationHandler
 from telegram import ReplyKeyboardMarkup
-from tg_token import TOKEN
+try:
+    from tg_token import TOKEN
+except ImportError:
+    print('Файл с токеном не найден')
+    TOKEN = ''
 
 
 ENTRANCE, FIRST_HALL, SECOND_HALL, THIRD_HALL, FOURTH_HALL = range(5)

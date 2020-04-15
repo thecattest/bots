@@ -4,7 +4,11 @@ from telegram.ext import CommandHandler, ConversationHandler
 from telegram import ReplyKeyboardMarkup
 
 import random
-from tg_token import TOKEN
+try:
+    from tg_token import TOKEN
+except ImportError:
+    print('Файл с токеном не найден')
+    TOKEN = ''
 
 
 START, DICE, TIMER, WAIT = range(4)
