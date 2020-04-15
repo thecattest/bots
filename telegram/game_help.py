@@ -16,11 +16,15 @@ start_markup = ReplyKeyboardMarkup([
     ['/dice', '/timer']
 ], resize_keyboard=True)
 dice_markup = ReplyKeyboardMarkup([
-    ['/throw один 6-гранный', '/throw два 6-гранных', '/throw 20-гранный'],
+    ['/throw один 6-гранный'],
+    ['/throw два 6-гранных'],
+    ['/throw 20-гранный'],
     ['/cancel']
 ], resize_keyboard=True)
 timer_markup = ReplyKeyboardMarkup([
-    ['/set \n30 секунд', '/set \n1 минута', '/set \n5 минут'],
+    ['/set 30 секунд'],
+    ['/set 1 минута'],
+    ['/set 5 минут'],
     ['/cancel']
 ], resize_keyboard=True)
 waiting_markup = ReplyKeyboardMarkup([
@@ -46,7 +50,7 @@ def start(update, context):
 
 def dice(update, context):
     update.message.reply_text(
-        "Теперь выберите, какой кубик кинуть: один 6-гранный, два 6-гранных или 20-гранный",
+        "Теперь выберите, какой кубик кинуть:",
         reply_markup=dice_markup
     )
     return DICE
