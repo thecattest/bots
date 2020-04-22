@@ -143,6 +143,9 @@ def cancel(update, context):
 
 
 def repeat(update, context):
+    if 'job' in context.chat_data:
+        update.message.reply_text("Время ещё не вышло")
+        return TIMER
     update.message.reply_text(
         "Не понял команду, давайте ещё разок",
         reply_markup=start_markup
