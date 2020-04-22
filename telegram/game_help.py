@@ -11,7 +11,7 @@ except ImportError:
     TOKEN = ''
 
 
-START, DICE, TIMER, WAIT = range(4)
+START, DICE, TIMER = range(3)
 
 help_markup = ReplyKeyboardMarkup([
     ['/start']
@@ -99,8 +99,8 @@ def set_timer(update, context):
         return repeat(update, context)
 
     if 'job' in context.chat_data:
-        old_job = context.chat_data['job']
-        old_job.schedule_removal()
+        update.message.reply_text("Время ещё не вышло")
+        return TIMER
     new_job = context.job_queue.run_once(task, time, context=chat_id)
     context.chat_data['job'] = new_job
 
@@ -108,12 +108,7 @@ def set_timer(update, context):
         f'Таймер на {time} секунд',
         reply_markup=waiting_markup
     )
-    return WAIT
-
-
-def wait(update, context):
-    update.message.reply_text("Время ещё не вышло")
-    return WAIT
+    return TIMER
 
 
 def task(context):
@@ -137,6 +132,9 @@ def unset_timer(update, context):
 
 
 def cancel(update, context):
+    if 'job' in context.chat_data:
+        update.message.reply_text("Время ещё не вышло")
+        return TIMER
     update.message.reply_text(
         "Окей, вы можете выбрать что-то другое.",
         reply_markup=start_markup
@@ -173,17 +171,25 @@ def main():
                     )],
 
             # выбираем время
-            TIMER: [CommandHandler('cancel', cancel),
+            TIMER: [CommandHandler(
+                        'cancel',
+                        cancel,
+                        pass_job_queue=True,
+                        pass_chat_data=True
+                    ),
+                    CommandHandler(
+                        'close',
+                        unset_timer,
+                        pass_job_queue=True,
+                        pass_chat_data=True
+                    ),
                     CommandHandler(
                         "set",
                         set_timer,
                         pass_args=True,
                         pass_job_queue=True,
                         pass_chat_data=True
-                    )],
-
-            WAIT: [CommandHandler('close', unset_timer),
-                   MessageHandler(Filters.regex(".*"), wait)]
+                    )]
         },
 
         fallbacks=[CommandHandler('start', start),
