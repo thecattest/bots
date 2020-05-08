@@ -1,6 +1,8 @@
-/.idea/*
+/.idea/
+
 /telegram/__pycache__/
 telegram/tg_token.py
-/vk/*.json
-/vk/vk_token.py
+
 /vk/__pycache__/
+/vk/vk_token.py
+/vk/*.json
