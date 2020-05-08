@@ -12,8 +12,6 @@ except ImportError:
 
 
 def main():
-    triggers = ['врем', 'числ', 'дат', 'ден']
-
     vk_session = vk_api.VkApi(
         token=TOKEN)
 
@@ -27,11 +25,11 @@ def main():
             user = vk.users.get(user_id=from_id, fields='city')[0]
             print(f"{user['first_name']} {user['last_name']}: {message['text']}")
 
-            if any(trigger_word in message['text'] for trigger_word in triggers):
-                now = datetime.datetime.now().strftime('%A, %d %b %Y, %H:%M')
-                answer = f"Сейчас по Москве:\n{now}"
-            else:
-                answer = f"Спросите дату/число/время/день и я отвечу по Москве"
+            try:
+                date = datetime.datetime.strptime(message['text'], '%Y-%m-%d')
+                answer = date.strftime('%A')
+            except ValueError:
+                answer = "Отправь мне дату в формате YYYY-MM-DD и я скажу тебе день недели"
 
             random_id = random.randint(0, 2 ** 64)
             vk.messages.send(user_id=from_id,
