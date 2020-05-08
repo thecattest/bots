@@ -1,5 +1,4 @@
 import vk_api
-import datetime
 
 try:
     from vk_token import LOGIN, PASSWORD
@@ -10,8 +9,7 @@ except ImportError:
 
 
 def main():
-    login, password = LOGIN, PASSWORD
-    vk_session = vk_api.VkApi(login, password)
+    vk_session = vk_api.VkApi(LOGIN, PASSWORD)
     try:
         vk_session.auth(token_only=True)
     except vk_api.AuthError as error_msg:

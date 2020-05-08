@@ -1,5 +1,5 @@
 import vk_api
-import datetime
+import os
 
 try:
     from vk_token import LOGIN, PASSWORD
@@ -10,6 +10,9 @@ except ImportError:
 
 
 def main():
+    album_id = 263568049
+    group_id = 180439946
+    photo_path = 'static/img'
     vk_session = vk_api.VkApi(LOGIN, PASSWORD)
     try:
         vk_session.auth(token_only=True)
@@ -17,15 +20,10 @@ def main():
         print(error_msg)
         return
     vk = vk_session.get_api()
+    upload = vk_api.VkUpload(vk_session)
 
-    response = vk.wall.get(count=5, filter='owner')
-    if response['items']:
-        for note in response['items']:
-            timestamp = note['date']
-            text = note['text']
-            date_obj = datetime.datetime.fromtimestamp(timestamp)
-            date = date_obj.strftime('date: {%Y-%m-%d}, time: {%H:%M:%S}')
-            print(f"{{'{text}'}};\n{date}\n")
+    photos = [os.path.join(photo_path, fn) for fn in os.listdir(photo_path)]
+    upload.photo(photos, album_id=album_id, group_id=group_id)
 
 
 if __name__ == '__main__':
