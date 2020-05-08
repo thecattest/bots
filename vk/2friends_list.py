@@ -4,8 +4,7 @@ try:
     from vk_token import LOGIN, PASSWORD
 except ImportError:
     print('Файл с логином и паролем не найден')
-    LOGIN = ''
-    PASSWORD = ''
+    exit(1)
 
 
 def main():
