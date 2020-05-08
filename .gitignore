@@ -1,3 +1,4 @@
 /.idea/*
 /telegram/__pycache__/
 telegram/tg_token.py
+/vk/*.json
