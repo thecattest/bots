@@ -1,6 +1,13 @@
 import vk_api
 import datetime
 
+try:
+    from vk_token import LOGIN, PASSWORD
+except ImportError:
+    print('Файл с логином и паролем не найден')
+    LOGIN = ''
+    PASSWORD = ''
+
 
 def main():
     login, password = LOGIN, PASSWORD
