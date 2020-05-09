@@ -3,4 +3,4 @@
 Если ты второй курс и нагло и бессовестно копируешь отсюда решения то хотя бы звездочку поставь ладно....  
   
 (Ещё можешь посмотреть на кота, он классный)
-![тут должна быть фотокарточка](https://github.com/ilya-vodopyanov/bots/blob/master/vk/static/img/3.jpg)
+![тут должна быть фотокарточка](https://github.com/ilya-vodopyanov/bots/raw/master/vk/static/img/3.jpg)
